@@ -1,5 +1,5 @@
-//set const var perPage at the top of the file and set it to 6
-const perPage:number = 6;
+// set const var perPage at the top of the file and set it to 6
+const perPage = 6;
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getAllPosts():Observable<BlogPost[]>{
+  getAllPosts(): Observable<BlogPost[]>{
     return this.http.get<BlogPost[]>(`https://web422-posts.herokuapp.com/api/posts?page=1&perPage=${Number.MAX_SAFE_INTEGER}`);
   }
 
@@ -30,11 +30,11 @@ export class PostService {
     return this.http.delete<any>(`https://web422-posts.herokuapp.com/api/posts/${id}`);
   }
 
-  getPosts(page, tag, category):Observable<BlogPost[]>{
-    //if the "tag" parameter is not null / undefined, then add &tag=tag to the path.
+  getPosts(page, tag, category): Observable<BlogPost[]>{
+    // if the "tag" parameter is not null / undefined, then add &tag=tag to the path.
     if (tag){
       return this.http.get<BlogPost[]>(`https://web422-posts.herokuapp.com/api/posts?page=${page}&perPage=${perPage}&tag=${tag}`);
-    //if the "category" parameter is not null /undefined, then add &category=category to the path
+    // if the "category" parameter is not null /undefined, then add &category=category to the path
     } else if (category) {
       return this.http.get<BlogPost[]>(`https://web422-posts.herokuapp.com/api/posts?page=${page}&perPage=${perPage}&category=${category}`);
     } else {
@@ -42,16 +42,16 @@ export class PostService {
     }
   }
 
-  getPostbyId(id):Observable<BlogPost>{
+  getPostbyId(id): Observable<BlogPost>{
     return this.http.get<BlogPost>(`https://web422-posts.herokuapp.com/api/posts/${id}`);
   }
 
-  //return an array of "Categories" in the format: {cat: string, num: number} using the path /api/categories
+  // return an array of "Categories" in the format: {cat: string, num: number} using the path /api/categories
   getCategories(): Observable<any>{
     return this.http.get<string[]>(`https://web422-posts.herokuapp.com/api/categories`);
   }
 
-  //return an array of "Tags" (represented as strings) using the path /api/tags.
+  // return an array of "Tags" (represented as strings) using the path /api/tags.
   getTags(): Observable<string[]>{
     return this.http.get<string[]>(`https://web422-posts.herokuapp.com/api/tags`);
   }
